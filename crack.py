@@ -1,13 +1,21 @@
+import html
 import re
 import subprocess
 import time
 from subprocess import Popen, PIPE
+from typing import Literal
 
 import pandas as pd
 from passlib.hash import nthash
 
 import streamlit as st
 from st_keyup import st_keyup
+
+
+def align(content: str, direction: Literal['right', 'center'], nowrap=False, unsafe_allow_html=False):
+    st.markdown(f'<div style="text-align: {direction}; width: 100%; {"white-space: nowrap;" if nowrap else ""}">'
+                f'{content if unsafe_allow_html else html.escape(content)}</div>',
+                unsafe_allow_html=True)
 
 KEYS = ['Status', 'Hash.Mode', 'Hash.Target', 'Guess.Mask', 'Guess.Queue', 'Speed', 'Progress', '* Device']
 
@@ -62,3 +70,7 @@ with placeholder.container():
                         success_cmd).decode('utf-8').splitlines()}
                     st.success(f'''# {hashes[h]}''')
                     st.text(f'''Cracked in {time.time() - start:.2f} seconds''')
+
+align('<a href="https://github.com/erikvanzijst/pw">'
+      '<img src="https://badgen.net/static/github/code?icon=github">'
+      '</a>', 'center', unsafe_allow_html=True)
