@@ -33,8 +33,8 @@ with placeholder.container():
                      '/tmp/potfile', '--status-timer=2', h]
         success_cmd = ['cat', '/tmp/potfile']
 
-        shell = st.code(' '.join(crack_cmd), wrap_lines=True)
         result = st.empty()
+        shell = st.code(' '.join(crack_cmd), wrap_lines=True)
         status = st.empty()
         vals = {}
         start = time.time()
